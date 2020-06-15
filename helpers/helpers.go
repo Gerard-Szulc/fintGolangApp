@@ -40,35 +40,27 @@ func init() {
 func ConnectDB() *gorm.DB {
 
 	dbhost, exists := os.LookupEnv("DBHOST")
-
-	if exists {
+	if !exists {
 		fmt.Println(exists)
 	}
 
 	dbport, exists := os.LookupEnv("DBPORT")
-
-	if exists {
+	if !exists {
 		fmt.Println(exists)
 	}
-
 	user, exists := os.LookupEnv("DBUSER")
-
-	if exists {
-		fmt.Println(user)
+	if !exists {
+		fmt.Println(exists)
 	}
 	password, exists := os.LookupEnv("DBPASSWORD")
-
-	if exists {
+	if !exists {
 		fmt.Println(exists)
 	}
 	dbname, exists := os.LookupEnv("DBNAME")
-
-	if exists {
+	if !exists {
 		fmt.Println(exists)
 	}
-
 	dbargs := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbhost, dbport, user, dbname, password)
-	fmt.Println(dbargs)
 	db, err := gorm.Open("postgres", dbargs)
 	HandleErr(err)
 	return db
