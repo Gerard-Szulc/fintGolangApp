@@ -37,3 +37,7 @@ type Register struct {
 	Email    string
 	Password string
 }
+
+type ErrResponse struct {
+	Message string
+}
