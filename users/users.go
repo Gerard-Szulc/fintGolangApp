@@ -38,7 +38,7 @@ func Login(username string, pass string) map[string]interface{} {
 	token, err := jwtToken.SignedString([]byte("TokenPassword"))
 	helpers.HandleErr(err)
 
-	var response = map[string]interface{}{"message": "all is fine"}
+	var response = map[string]interface{}{"message": "login_success"}
 	response["jwt"] = token
 	response["data"] = responseUser
 	return response

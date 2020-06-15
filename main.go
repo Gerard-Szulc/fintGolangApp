@@ -1,7 +1,11 @@
 package main
 
-import "fintGolangApp/migrations"
+import (
+	"fintGolangApp/api"
+)
 
 func main() {
-	migrations.Migrate()
+	//migrations.Migrate()
+	api.StartApi()
+
 }

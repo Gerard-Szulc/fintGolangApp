@@ -3,6 +3,7 @@ package helpers
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 	"os"
@@ -20,7 +21,7 @@ func HashAndSalt(pass []byte) string {
 	return string(hashed)
 }
 
-func Init() {
+func init() {
 	// loads values from .env into the system
 	env := os.Getenv("FINT_ENV")
 	if "" == env {
@@ -37,7 +38,6 @@ func Init() {
 }
 
 func ConnectDB() *gorm.DB {
-	Init()
 
 	dbhost, exists := os.LookupEnv("DBHOST")
 
@@ -68,6 +68,7 @@ func ConnectDB() *gorm.DB {
 	}
 
 	dbargs := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbhost, dbport, user, dbname, password)
+	fmt.Println(dbargs)
 	db, err := gorm.Open("postgres", dbargs)
 	HandleErr(err)
 	return db
