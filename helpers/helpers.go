@@ -39,6 +39,18 @@ func Init() {
 func ConnectDB() *gorm.DB {
 	Init()
 
+	dbhost, exists := os.LookupEnv("DBHOST")
+
+	if exists {
+		fmt.Println(exists)
+	}
+
+	dbport, exists := os.LookupEnv("DBPORT")
+
+	if exists {
+		fmt.Println(exists)
+	}
+
 	user, exists := os.LookupEnv("DBUSER")
 
 	if exists {
@@ -55,8 +67,7 @@ func ConnectDB() *gorm.DB {
 		fmt.Println(exists)
 	}
 
-	dbargs := fmt.Sprintf("host=127.0.0.1 port=5432 user=%s dbname=%s password=%s sslmode=disable", user, dbname, password)
-	fmt.Println(dbargs)
+	dbargs := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbhost, dbport, user, dbname, password)
 	db, err := gorm.Open("postgres", dbargs)
 	HandleErr(err)
 	return db
