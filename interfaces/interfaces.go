@@ -41,3 +41,10 @@ type Register struct {
 type ErrResponse struct {
 	Message string
 }
+
+type Transaction struct {
+	gorm.Model
+	From   uint
+	To     uint
+	Amount int
+}
