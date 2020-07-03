@@ -2,10 +2,22 @@ package main
 
 import (
 	"fintGolangApp/api"
+	"fintGolangApp/migrations"
+	"os"
 )
 
 func main() {
-	//migrations.Migrate()
-	api.StartApi()
+	argsWithProg := os.Args
+	switch argsWithProg[1] {
+	case "migrate":
+		{
+			migrations.Migrate()
+			return
+		}
+	case "start":
+		{
+			api.StartApi()
+		}
+	}
 
 }

@@ -24,10 +24,11 @@ func createAccounts() {
 }
 
 func Migrate() {
+	Transactions := &interfaces.Transaction{}
 	User := &interfaces.User{}
 	Account := &interfaces.Account{}
 	db := helpers.ConnectDB()
-	db.AutoMigrate(&User, &Account)
+	db.AutoMigrate(&User, &Account, &Transactions)
 	defer db.Close()
 
 	createAccounts()
