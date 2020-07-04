@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fintGolangApp/helpers"
 	"fintGolangApp/interfaces"
+	"fintGolangApp/transactions"
 	"fintGolangApp/useraccounts"
 	"fintGolangApp/users"
 	"fmt"
@@ -48,6 +49,7 @@ func StartApi() {
 	router.HandleFunc("/login", login).Methods("POST")
 	router.HandleFunc("/register", register).Methods("POST")
 	router.HandleFunc("/transaction", transaction).Methods("POST")
+	router.HandleFunc("/transactions/{userID}", getUserTransactions).Methods("GET")
 	router.HandleFunc("/user/{id}", getUser).Methods("GET")
 	fmt.Println("App is working on port :8888")
 	log.Fatal(http.ListenAndServe(":8888", router))
@@ -88,4 +90,13 @@ func transaction(w http.ResponseWriter, r *http.Request) {
 
 	transaction := useraccounts.Transaction(formattedBody.UserId, formattedBody.From, formattedBody.To, formattedBody.Amount, auth)
 	apiResponse(transaction, w)
+}
+
+func getUserTransactions(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userId := vars["userID"]
+	auth := r.Header.Get("Authorization")
+
+	myTransactions := transactions.GetUserTransactions(userId, auth)
+	apiResponse(myTransactions, w)
 }

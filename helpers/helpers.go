@@ -3,9 +3,7 @@ package helpers
 import (
 	"encoding/json"
 	"fintGolangApp/interfaces"
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
@@ -43,35 +41,6 @@ func init() {
 	godotenv.Load(".env." + env)
 	err := godotenv.Load()
 	HandleErr(err)
-}
-
-func ConnectDB() *gorm.DB {
-
-	dbhost, exists := os.LookupEnv("DBHOST")
-	if !exists {
-		fmt.Println(exists)
-	}
-
-	dbport, exists := os.LookupEnv("DBPORT")
-	if !exists {
-		fmt.Println(exists)
-	}
-	user, exists := os.LookupEnv("DBUSER")
-	if !exists {
-		fmt.Println(exists)
-	}
-	password, exists := os.LookupEnv("DBPASSWORD")
-	if !exists {
-		fmt.Println(exists)
-	}
-	dbname, exists := os.LookupEnv("DBNAME")
-	if !exists {
-		fmt.Println(exists)
-	}
-	dbargs := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbhost, dbport, user, dbname, password)
-	db, err := gorm.Open("postgres", dbargs)
-	HandleErr(err)
-	return db
 }
 
 func Validation(values []interfaces.Validation) bool {

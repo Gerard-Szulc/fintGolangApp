@@ -2,6 +2,7 @@ package main
 
 import (
 	"fintGolangApp/api"
+	"fintGolangApp/database"
 	"fintGolangApp/migrations"
 	"os"
 )
@@ -16,6 +17,7 @@ func main() {
 		}
 	case "start":
 		{
+			database.InitDatabase()
 			api.StartApi()
 		}
 	}
